@@ -1,0 +1,239 @@
+swagger: "2.0"
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+  contact:
+    email: info@niveussolutions.com
+
+basePath: /automation
+
+paths:
+  /encrypt:
+    post:
+      summary: "encrypt data"
+      operationId: "encrypt"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/encryptRequest'
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/encryptResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        429:
+          description: Rate Limit Exceeded
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      x-swagger-router-controller: "encryptDecryptController"  
+
+  /decrypt:
+    post:
+      summary: "decrypt data"
+      operationId: "decrypt"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/decryptRequest'
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/decryptResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        429:
+          description: Rate Limit Exceeded
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      x-swagger-router-controller: "encryptDecryptController"   
+
+  /execute-active-queries:
+    post:
+      summary: "execute active queries"
+      operationId: "executeActiveQueries"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/execute-active-queriesRequest'
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/execute-active-queriesResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        429:
+          description: Rate Limit Exceeded
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      x-swagger-router-controller: "activeQueriesController"          
+
+  /insert-active-queries:
+    post:
+      summary: "insert active queries"
+      operationId: "insertActiveQueries"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/insert-active-queriesRequest'
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/insert-active-queriesResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        429:
+          description: Rate Limit Exceeded
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'  
+      x-swagger-router-controller: "activeQueriesController"      
+
+definitions:
+  encryptRequest:
+    type: object
+    properties:
+      text:
+        type: string
+        example: 'XXXXXXXXXX'
+      secret:
+        type: string
+        example: 'XXXXXXXXXX'  
+
+  encryptResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        example: 'XXXXXXXXXX'  
+
+  decryptRequest:
+    type: object
+    properties:
+      text:
+        type: string
+        example: 'XXXXXXXXXX'
+      secret:
+        type: string
+        example: 'XXXXXXXXXX'      
+
+  decryptResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        example: 'XXXXXXXXXX'
+
+  execute-active-queriesRequest:
+    type: object
+    properties:
+      password:
+        type: string
+        example: 'XXXXXXXXXX'
+
+  execute-active-queriesResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        example: 'Queries executed successfully'
+    
+  insert-active-queriesRequest:
+    type: object
+    properties:
+      queries:
+        type: array
+        items:
+          type: object
+          properties:          # Corrected indentation here
+            query_execution:
+              type: string
+            is_active:
+              type: boolean   
+                
+              
+
+  insert-active-queriesResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        example: 'Queries inserted successfully'
+
+  ErrorModel:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      details:
+        type: string
